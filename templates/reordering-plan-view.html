@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Reordering Plan{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Reordering Plan - {{plan.name}}</h2></div>
+        </div>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">MOQ</th>
+                    <th scope="col">Lead Time</th>
+                    <th scope="col">Safety Stock Days</th>
+                    <th scope="col">Current Inventory</th>
+                    <th scope="col">Forecast</th>
+                    <th scope="col">Safety Stock</th>
+                    <th scope="col">Proposal</th>
+                    <th scope="col">Closing Inventory</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in plan_lines %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{line.material.itemcode}}</td>
+                    <td>{{line.material.name}}</td>
+                    <td>{{line.minimum_order_quantity}}</td>
+                    <td>{{line.lead_time}}</td>
+                    <td>{{line.safety_stock_days}}</td>
+                    <td>{{line.current_inventory}}</td>
+                    <td>{{line.forecast}}</td>
+                    <td>{{line.safety_stock}}</td>
+                    <td>{{line.proposal}}</td>
+                    <td>{{line.closing_inventory}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById("reordering-link").classList.add('active');
+</script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Materials{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Materials</h2></div>
+            <div class="col text-end"><a class="btn btn-primary" href="/planning/materials/add">Add Material</a></div>    
+        </div>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Lead Time</th>
+                    <th scope="col">Minimum Order Quantity</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in materials %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{m.itemcode}}</td>
+                    <td>{{m.name}}</td>
+                    <td>{{m.lead_time}} days</td>
+                    <td>{{m.minimum_order_quantity}} {{m.unit_of_measure}}</td>
+                    <td>£ {{m.cost}}</td>
+                    <td><a class="btn btn-dark" href="materials/{{m.itemcode}}">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById("materials-link").classList.add('active');
+</script>
+
+{% endblock %}

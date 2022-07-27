@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+
+<form action="/planning/inventory/products/edit" method="POST">{% csrf_token %}
+    <div class="row m-3">
+        <div class="col-12">
+            <div class="row">
+                <div class="col"><h2>Products Inventory</h2></div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inv in products_inv %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{inv.0.product.itemcode}}</td>
+                        <td>{{inv.0.product.name}}</td>
+                        <td><input type="text" class="form-control" aria-label="Product Inventory" name="{{inv.0.product.itemcode}}" value="{{inv.0.stock}}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row m-3">
+        <div class="col-12">
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.getElementById("inventory-link").classList.add('active');
+</script>
+
+{% endblock %}

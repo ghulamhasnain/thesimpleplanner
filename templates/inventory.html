@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Products Inventory</h2></div>
+            <div class="col text-end"><a class="btn btn-primary" href="/planning/inventory/products/edit">Edit Inventory</a></div>
+        </div>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inv in products_inv %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{inv.0.product.itemcode}}</td>
+                    <td>{{inv.0.product.name}}</td>
+                    <td>{{inv.0.stock}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Materials Inventory</h2></div>
+            <div class="col text-end"><a class="btn btn-primary" href="/planning/inventory/materials/edit">Edit Inventory</a></div>
+        </div>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inv in materials_inv %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{inv.0.material.itemcode}}</td>
+                    <td>{{inv.0.material.name}}</td>
+                    <td>{{inv.0.stock}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById("inventory-link").classList.add('active');
+</script>
+
+{% endblock %}

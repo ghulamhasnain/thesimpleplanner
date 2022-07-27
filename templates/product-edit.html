@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <h2>Products - {{product.name}}</h2>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col-md-4">
+        <form action="/planning/products/{{product.itemcode}}/edit" method="POST">{% csrf_token %}
+            <table class="table table-light">
+                <tbody>
+                    <tr><td>Item Code</td><td>{{product.itemcode}}</td></tr>
+                    <tr><td>Name</td><td class="input-group"><input type="text" class="form-control" name="name" value="{{product.name}}"></td></tr>
+                    <tr><td>Batch Size</td><td class="input-group"><input type="text" class="form-control" name="batch_size" value="{{product.batch_size}}"></td></tr>
+                    <tr><td>Unit of Measure</td><td class="input-group"><input type="text" class="form-control" name="unit_of_measure" value="{{product.unit_of_measure}}"></td></tr>
+                    <tr><td>Selling Price</td><td class="input-group"><input type="text" class="form-control" name="selling_price" value="{{product.selling_price}}"></td></tr>
+                </tbody>
+            </table>
+            <input class="btn btn-success w-100 mt-1" type="submit" value="Save">
+        </form>
+        <form action="{{product.itemcode}}/delete" method="POST">{% csrf_token %}
+            <input class="btn btn-danger w-100 mt-1" type="submit" value="Delete">
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("product-link").classList.add('active');
+</script>
+
+{% endblock %}

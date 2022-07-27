@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Bill of Materials{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Bill of Materials - {{product.name}}</h2></div>
+        </div>
+    </div>
+</div>
+<form action="/planning/bom/{{product.itemcode}}/add" method="POST">{% csrf_token %}
+    <div class="row m-3">
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Item Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Base Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    {% for m in materials %}
+                    <tr>
+                        <td>
+                            <div class="col">{{m.itemcode}}</div>
+                        </td>
+                        <td>
+                            <div class="col">{{m.name}}</div>
+                        </td>
+                        <td>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" aria-label="Base Quantity" name="{{m.itemcode}}" value="0">
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- <div class="row m-3">
+        <div class="col-12">
+            <div class="col text-end"><button onclick="addMaterial()" class="btn btn-light btn-sm">+ Add Material</button></div>
+        </div>
+    </div> -->
+    <div class="row m-3">
+        <div class="col-12">
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.getElementById("bom-link").classList.add('active');
+
+    function addMaterial() {
+        console.log('{{materials}}'[0]);
+        const node = document.createElement('tr');
+        node.innerHTML = `
+            <td>
+                <div class="col">
+                    <select class="form-select material" aria-label="Materials">
+                        <option selected>Choose a material ...</option>
+                        {% for m in materials %}
+                        <option value="{{m.itemcode}}">{{m.itemcode}} - {{m.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Base Quantity" name="base_quantity">
+                </div>
+            </td>
+        `
+        document.getElementById('table-body').appendChild(node);
+    }
+</script>
+
+{% endblock %}
