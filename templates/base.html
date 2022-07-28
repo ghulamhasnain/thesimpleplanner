@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+        
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row" style="background: #8400ff">
+                <div class="col-xs-offset-3 col-xs-6 col-sm-2 col-sm-offset-0 col-md-2 col-md-offset-0">
+                    <a href="/">
+                        <img src="https://via.placeholder.com/300x100" width="100%">
+                    </a>
+                </div>
+                <div class="col text-end">
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-primary" href="{% url 'logout' %}">{{user.first_name}}</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 pt-4">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a id="dashboard-link" class="nav-link" href="/planning/dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="products-link" class="nav-link" href="/planning/products">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="materials-link" class="nav-link" href="/planning/materials">Materials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="bom-link" class="nav-link" href="/planning/bom">Bill of Materials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="inventory-link" class="nav-link" href="/planning/inventory">Inventory</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="forecasts-link" class="nav-link" href="/planning/forecasts">Forecasts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="reordering-link" class="nav-link" href="/planning/reordering">Reordering Table</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

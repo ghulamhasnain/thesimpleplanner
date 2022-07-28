@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Products - {{product.name}}</h2></div>
+            {% if bom_list|length > 0 %}
+            <div class="col text-end"><a class="btn btn-primary" href="/planning/bom/{{product.itemcode}}/edit">Edit Bill of Materials</a></div>
+            {% else %}
+            <div class="col text-end"><a class="btn btn-primary" href="/planning/bom/{{product.itemcode}}/add">Add Bill of Materials</a></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="row m-3">
+    <div class="col-md-4">
+        <table class="table table-light">
+            <tbody>
+                <tr><td>Item Code</td><td>{{product.itemcode}}</td></tr>
+                <tr><td>Name</td><td>{{product.name}}</td></tr>
+                <tr><td>Batch Size</td><td>{{product.batch_size}}</td></tr>
+                <tr><td>Unit of Measure</td><td>{{product.unit_of_measure}}</td></tr>
+                <tr><td>Selling Price</td><td>{{product.selling_price}}</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if bom_list|length > 0 %}
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h3>Bill of Materials</h3></div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-3">
+    <div class="col-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Base Quantity</th>
+                    <th scope="col">Lead Time</th>
+                    <th scope="col">Minimum Order Quantity</th>
+                    <th scope="col">Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bom in bom_list %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{bom.material.itemcode}}</td>
+                    <td>{{bom.material.name}}</td>
+                    <td>{{bom.base_quantity}}</td>
+                    <td>{{bom.material.lead_time}} days</td>
+                    <td>{{bom.material.minimum_order_quantity}} {{bom.material.unit_of_measure}}</td>
+                    <td>£ {{bom.material.cost}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endif %}
+
+<script>
+    document.getElementById("products-link").classList.add('active');
+</script>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Reordering Table{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Reordering Plan</h2></div>
+        </div>
+    </div>
+</div>
+<form action="/planning/reordering/add" method="POST">{% csrf_token %}
+    <div class="row m-3">
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">MOQ</th>
+                        <th scope="col">Lead Time</th>
+                        <th scope="col">Safety Stock Days</th>
+                        <th scope="col">Current Inventory</th>
+                        <th scope="col">Forecast</th>
+                        <th scope="col">Safety Stock</th>
+                        <th scope="col">Proposal</th>
+                        <th scope="col">Closing Inventory</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for line in table_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><input style="width: 100%; border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
+                        <td>{{line.material.name}}</td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory}}" readonly></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-12">
+            <div class="col">
+                <input name="name" type="text" class="" value="" placeholder="Name">
+            </div>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-12">
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.getElementById("reordering-link").classList.add('active');
+</script>
+
+{% endblock %}

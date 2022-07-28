@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Products</h2></div>
+            <div class="col text-end"><a class="btn btn-primary" href="/planning/products/add">Add Product</a></div>
+        </div>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Batch Size</th>
+                    <th scope="col">Unit of Measure</th>
+                    <th scope="col">Selling Price</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in products %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{p.itemcode}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.batch_size}}</td>
+                    <td>{{p.unit_of_measure}}</td>
+                    <td>£ {{p.selling_price}}</td>
+                    <td><a class="btn btn-dark" href="products/{{p.itemcode}}/view">View</a></td>
+                    <td><a class="btn btn-dark" href="products/{{p.itemcode}}/edit">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById("products-link").classList.add('active');
+</script>
+
+{% endblock %}

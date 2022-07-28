@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <h2>Products - Add Product</h2>
+    </div>
+</div>
+
+<div class="row m-3">
+    <div class="col-md-4">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{error}}
+            </div>
+        {% endif %}
+        <form action="/planning/products/add" method="POST">{% csrf_token %}
+            <table class="table table-light">
+                <tbody>
+                    <tr><td>Item Code</td><td><input type="text" class="form-control" name="itemcode"></td></tr>
+                    <tr><td>Name</td><td class="input-group"><input type="text" class="form-control" name="name"></td></tr>
+                    <tr><td>Batch Size</td><td class="input-group"><input type="text" class="form-control" name="batch_size"></td></tr>
+                    <tr><td>Unit of Measure</td><td class="input-group"><input type="text" class="form-control" name="unit_of_measure"></td></tr>
+                    <tr><td>Selling Price</td><td class="input-group"><input type="text" class="form-control" name="selling_price"></td></tr>
+                </tbody>
+            </table>
+            <input class="btn btn-success w-100 mt-1" type="submit" value="Save">
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("products-link").classList.add('active');
+</script>
+
+{% endblock %}
