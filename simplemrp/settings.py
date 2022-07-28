@@ -82,7 +82,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ghulamhasnain$thesimpleplanner',
+        'NAME': 'ghulamhasnain$thesimpleplannerdb',
         'USER': 'ghulamhasnain',
         'PASSWORD': 'huda-ZAHED-ahmed',
         'HOST': 'ghulamhasnain.mysql.pythonanywhere-services.com',
