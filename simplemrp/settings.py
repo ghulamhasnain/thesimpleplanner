@@ -75,9 +75,17 @@ WSGI_APPLICATION = 'simplemrp.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': 'db.sqlite3',
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ghulamhasnain$thesimpleplanner',
+        'USER': 'ghulamhasnain',
+        'PASSWORD': 'huda-ZAHED-ahmed',
+        'HOST': 'ghulamhasnain.mysql.pythonanywhere-services.com',
     }
 }
 
