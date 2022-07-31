@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Material(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     itemcode = models.CharField(max_length=24, unique=True)
-    name = models.CharField(max_length=24)
+    name = models.CharField(max_length=64)
     lead_time = models.IntegerField(default=1)
     minimum_order_quantity = models.IntegerField(default=1)
     unit_of_measure = models.CharField(max_length=16, default='')
@@ -18,7 +18,7 @@ class Material(models.Model):
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     itemcode = models.CharField(max_length=24, unique=True)
-    name = models.CharField(max_length=24)
+    name = models.CharField(max_length=64)
     batch_size = models.FloatField(default=1)
     unit_of_measure = models.CharField(max_length=16, default='')
     selling_price = models.FloatField(default=1)
@@ -61,7 +61,7 @@ class Forecast(models.Model):
 
 class ReorderingPlan(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    name = models.CharField(max_length=48, default='')
+    name = models.CharField(max_length=64, default='')
     created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
