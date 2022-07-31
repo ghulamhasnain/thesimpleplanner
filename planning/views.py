@@ -396,14 +396,14 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 
 			mat_plan_line.plan = mat_plan
 			mat_plan_line.material = m
-			mat_plan_line.minimum_order_quantity = int(moq_post) if regex_pattern_match(integer_regex_pattern, moq_post) else 0
-			mat_plan_line.lead_time = int(lead_time_post) if regex_pattern_match(integer_regex_pattern, lead_time_post) else 0
-			mat_plan_line.safety_stock_days = int(safety_stock_days_post) if regex_pattern_match(integer_regex_pattern, safety_stock_days_post) else 0
-			mat_plan_line.current_inventory = float(current_inventory_post) if regex_pattern_match(float_regex_pattern, current_inventory_post) else 0
-			mat_plan_line.forecast = float(forecast_post) if regex_pattern_match(float_regex_pattern, forecast_post) else 0
-			mat_plan_line.safety_stock = int(safety_stock_post) if regex_pattern_match(integer_regex_pattern, safety_stock_post) else 0
-			mat_plan_line.proposal = int(proposal_post) if regex_pattern_match(integer_regex_pattern, proposal_post) else 0
-			mat_plan_line.closing_inventory = int(closing_inventory_post) if regex_pattern_match(integer_regex_pattern, closing_inventory_post) else 0
+			mat_plan_line.minimum_order_quantity = stringToInt(moq_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(moq_post))) else 0
+			mat_plan_line.lead_time = stringToInt(lead_time_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(lead_time_post))) else 0
+			mat_plan_line.safety_stock_days = stringToInt(safety_stock_days_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(safety_stock_days_post))) else 0
+			mat_plan_line.current_inventory = stringToFloat(current_inventory_post) if regex_pattern_match(float_regex_pattern, str(stringToFloat(current_inventory_post))) else 0
+			mat_plan_line.forecast = stringToFloat(forecast_post) if regex_pattern_match(float_regex_pattern, str(stringToFloat(forecast_post))) else 0
+			mat_plan_line.safety_stock = stringToInt(safety_stock_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(safety_stock_post))) else 0
+			mat_plan_line.proposal = stringToInt(proposal_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(proposal_post))) else 0
+			mat_plan_line.closing_inventory = stringToFloat(closing_inventory_post) if regex_pattern_match(float_regex_pattern, str(stringToFloat(closing_inventory_post))) else 0
 
 			table_list.append(mat_plan_line)
 		mat_plan.save()

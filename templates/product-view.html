@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% load humanize %}
+
 <div class="row m-3">
     <div class="col-12">
         <div class="row">
@@ -23,7 +25,7 @@
             <tbody>
                 <tr><td>Item Code</td><td>{{product.itemcode}}</td></tr>
                 <tr><td>Name</td><td>{{product.name}}</td></tr>
-                <tr><td>Batch Size</td><td>{{product.batch_size}}</td></tr>
+                <tr><td>Batch Size</td><td>{{product.batch_size | intcomma}}</td></tr>
                 <tr><td>Unit of Measure</td><td>{{product.unit_of_measure}}</td></tr>
                 <tr><td>Selling Price</td><td>{{product.selling_price}}</td></tr>
             </tbody>
@@ -60,9 +62,9 @@
                     <th scope="row">{{forloop.counter}}</th>
                     <td>{{bom.material.itemcode}}</td>
                     <td>{{bom.material.name}}</td>
-                    <td>{{bom.base_quantity}}</td>
+                    <td>{{bom.base_quantity | intcomma}}</td>
                     <td>{{bom.material.lead_time}} days</td>
-                    <td>{{bom.material.minimum_order_quantity}} {{bom.material.unit_of_measure}}</td>
+                    <td>{{bom.material.minimum_order_quantity | intcomma}} {{bom.material.unit_of_measure}}</td>
                     <td>£ {{bom.material.cost}}</td>
                 </tr>
                 {% endfor %}

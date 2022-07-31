@@ -8,3 +8,9 @@ float_regex_pattern = "^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$"
 def regex_pattern_match(pattern, text):
     import re
     return re.match(pattern, text)
+
+def stringToInt(string):
+    return int(string.replace(',', ''))
+
+def stringToFloat(string):
+    return float(string.replace(',', ''))
