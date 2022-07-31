@@ -351,7 +351,7 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 			current_inventory = Inventory.objects.get(material = m).stock
 			safety_stock = math.ceil(forecast * (safety_stock_days / 30))
 			minimum_order_quantity = m.minimum_order_quantity
-			proposal = 0 if current_inventory > safety_stock + forecast else math.ceil((safety_stock + forecast - current_inventory) * minimum_order_quantity)
+			proposal = 0 if current_inventory > safety_stock + forecast else math.ceil((safety_stock + forecast - current_inventory)/minimum_order_quantity) * minimum_order_quantity
 			closing_inventory = current_inventory - forecast + proposal
 
 			mat_plan = ReorderingPlan()
