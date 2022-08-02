@@ -95,6 +95,12 @@ class Materials(LoginRequiredMixin, View):
 		materials = Material.objects.filter(user__username = request.user.username).order_by('itemcode')
 		return render(request, 'materials.html', {'materials': materials})
 
+class ViewMaterial(LoginRequiredMixin, View):
+	def get(self, request, materialItemCode):
+		materialItemCode = materialItemCode.lower()
+		material = Material.objects.get(itemcode = materialItemCode)
+		return render(request, 'material-view.html', {'material': material})
+
 class EditMaterial(LoginRequiredMixin, View):
 	def get(self, request, materialItemCode):
 		materialItemCode = materialItemCode.lower()

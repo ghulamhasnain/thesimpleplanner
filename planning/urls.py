@@ -28,7 +28,8 @@ urlpatterns = [
 
     path('materials', views.Materials.as_view(), name='materials'),
     path('materials/add', views.AddMaterial.as_view(), name='add_material'),
-    path('materials/<slug:materialItemCode>', views.EditMaterial.as_view(), name='edit_material'),
+    path('materials/<slug:materialItemCode>/view', views.ViewMaterial.as_view(), name='view_material'),
+    path('materials/<slug:materialItemCode>/edit', views.EditMaterial.as_view(), name='edit_material'),
     path('materials/<slug:materialItemCode>/delete', views.DeleteMaterial.as_view(), name='delete_material'),
     
     path('bom', views.BillOfMaterials.as_view(), name='bom'),
