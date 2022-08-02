@@ -11,7 +11,7 @@
 </div>
 <div class="row m-3">
     <div class="col-md-4">
-        <form action="{{material.itemcode}}" method="POST">{% csrf_token %}
+        <form action="/planning/materials/{{material.itemcode}}/edit" method="POST">{% csrf_token %}
             <table class="table table-light">
                 <tbody>
                     <tr><td>Item Code</td><td>{{material.itemcode}}</td></tr>
