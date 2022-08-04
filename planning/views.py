@@ -348,9 +348,10 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 			forecast = 0
 			for bom in bom_list:
 				product_forecast = Forecast.objects.get(product = bom.product).quantity
+				product_inventory = Inventory.objects.get(product = bom.product).stock
 				base_quantity = bom.base_quantity
 				batch_size = bom.product.batch_size
-				forecast_calculation = product_forecast * base_quantity / batch_size
+				forecast_calculation = (product_forecast - product_inventory) * base_quantity / batch_size
 				forecast = forecast + forecast_calculation
 			
 			safety_stock_days = m.lead_time + 1
