@@ -352,7 +352,7 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 				base_quantity = bom.base_quantity
 				batch_size = bom.product.batch_size
 				forecast_calculation = (product_forecast - product_inventory) * base_quantity / batch_size
-				forecast = forecast + forecast_calculation
+				forecast = forecast + forecast_calculation if forecast_calculation > 0 else forecast
 			
 			safety_stock_days = m.lead_time + 1
 			current_inventory = Inventory.objects.get(material = m).stock
