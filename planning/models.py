@@ -59,6 +59,30 @@ class Forecast(models.Model):
     def __str__(self):
         return self.product.itemcode
 
+class ProductionPlan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=64, default='')
+    created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+
+class ProductionPlanLine(models.Model):
+    plan = models.ForeignKey(ProductionPlan, on_delete=models.PROTECT, related_name='production_plan', null=False, blank=False)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='product_production', null=True, blank=True)
+    batch_size = models.FloatField(default=1)
+    safety_stock_days = models.IntegerField(default=1)
+    current_inventory = models.FloatField(default = 0)
+    forecast = models.FloatField(default=0)
+    safety_stock = models.FloatField(default = 0)
+    batches = models.FloatField(default = 0)
+    quantity = models.FloatField(default = 0)
+    closing_inventory = models.FloatField(default = 0)
+    closing_inventory_days = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.plan.name + ' ' + self.product.name
+
 class ReorderingPlan(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=64, default='')

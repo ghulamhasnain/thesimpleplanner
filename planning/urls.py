@@ -44,6 +44,11 @@ urlpatterns = [
     path('forecasts', views.Forecasts.as_view(), name='forecasts'),
     path('forecasts/edit', views.EditForecasts.as_view(), name='edit_forecasts'),
 
+    path('production', views.ProductionPlans.as_view(), name='production_plan'),
+    path('production/add', views.AddProductionPlan.as_view(), name='add_production_plan'),
+    path('production/<slug:planId>/delete', views.DeleteProductionPlan.as_view(), name='delete_production_plan'),
+    path('production/<slug:planId>/view', views.ViewProductionPlan.as_view(), name='view_production_plan'),
+
     path('reordering', views.ReorderingPlans.as_view(), name='reordering_plan'),
     path('reordering/<slug:planId>/view', views.ViewReorderingPlan.as_view(), name='view_reordering_plan'),
     path('reordering/<slug:planId>/delete', views.DeleteReorderingPlan.as_view(), name='delete_reordering_plan'),

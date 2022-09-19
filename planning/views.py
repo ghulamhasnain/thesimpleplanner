@@ -318,6 +318,92 @@ class EditForecasts(LoginRequiredMixin, View):
 		Forecast.objects.bulk_update(forecasts_list, ['quantity'])
 		return redirect('/planning/forecasts')
 
+class ProductionPlans(LoginRequiredMixin, View):
+	def get(self, request):
+		plans = ProductionPlan.objects.filter(user = request.user)
+		return render(request, 'production-plans.html', {'plans': plans})
+
+class AddProductionPlan(LoginRequiredMixin, View):
+	def get(self, request):
+		import math
+
+		products = Product.objects.filter(user = request.user)
+		table_list = []
+		for p in products:
+			prod_plan = ProductionPlanLine()
+			prod_plan.product = p
+			prod_plan.batch_size = p.batch_size
+			prod_plan.safety_stock_days = 0
+			prod_plan.current_inventory = Inventory.objects.get(product = p).stock
+			prod_plan.forecast = Forecast.objects.get(product = p).quantity
+			prod_plan.safety_stock = 0
+			prod_plan.batches = 0
+			prod_plan.quantity = 0
+			prod_plan.closing_inventory = 0
+			prod_plan.closing_inventory_days = 0
+
+			table_list.append(prod_plan)
+		
+		return render(request, 'production-plan-add.html', {'table_list': table_list})
+	
+	def post(self, request):
+		from datetime import datetime
+
+		name_post = request.POST.get('name')
+		contingency_name = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+		prod_plan = ProductionPlan()
+		prod_plan.user = request.user
+		prod_plan.name = name_post if regex_pattern_match(plan_regex_pattern, name_post) else 'Productionplan ' + contingency_name
+
+		products = Product.objects.filter(user = request.user)
+		table_list = []
+
+		for p in products:
+			prod_plan_line = ProductionPlanLine()
+			
+			itemcode = p.itemcode
+			safety_stock_days_post = request.POST.get(itemcode+'_safety_stock_days')
+			current_inventory_post = request.POST.get(itemcode+'_current_inventory')
+			forecast_post = request.POST.get(itemcode+'_forecast')
+			safety_stock_post = request.POST.get(itemcode+'_safety_stock')
+			batches_post = request.POST.get(itemcode+'_batches')
+			quantity_post = request.POST.get(itemcode+'_quantity')
+			closing_inventory_post = request.POST.get(itemcode+'_closing_inventory')
+			closing_inventory_days_post = request.POST.get(itemcode+'_closing_inventory_days')
+
+			prod_plan_line.plan = prod_plan
+			prod_plan_line.product = p
+			prod_plan_line.batch_size = p.batch_size
+			prod_plan_line.safety_stock_days = stringToInt(safety_stock_days_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(safety_stock_days_post))) else 0
+			prod_plan_line.current_inventory = stringToFloat(current_inventory_post) if regex_pattern_match(float_regex_pattern, str(stringToFloat(current_inventory_post))) else 0
+			prod_plan_line.forecast = stringToFloat(forecast_post) if regex_pattern_match(float_regex_pattern, str(stringToFloat(forecast_post))) else 0
+			prod_plan_line.safety_stock = stringToInt(safety_stock_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(safety_stock_post))) else 0
+			prod_plan_line.batches = stringToInt(batches_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(batches_post))) else 0
+			prod_plan_line.quantity = stringToInt(quantity_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(quantity_post))) else 0
+			prod_plan_line.closing_inventory = stringToFloat(closing_inventory_post) if regex_pattern_match(float_regex_pattern, str(stringToFloat(closing_inventory_post))) else 0
+			prod_plan_line.closing_inventory_days = stringToInt(closing_inventory_days_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(closing_inventory_days_post))) else 0
+
+			table_list.append(prod_plan_line)
+		
+		prod_plan.save()
+		ProductionPlanLine.objects.bulk_create(table_list)
+		return redirect('/planning/production')
+
+class ViewProductionPlan(LoginRequiredMixin, View):
+	def get(self, request, planId):
+		plan = ProductionPlan.objects.get(id = planId)
+		plan_lines = ProductionPlanLine.objects.filter(plan = plan)
+		return render(request, 'production-plan-view.html', {'plan': plan, 'plan_lines': plan_lines})
+
+class DeleteProductionPlan(LoginRequiredMixin, View):
+	def get(self, request, planId):
+		plan = ProductionPlan.objects.get(id = planId)
+		plan_lines = ProductionPlanLine.objects.filter(plan = plan)
+		plan_lines.delete()
+		plan.delete()
+		return redirect('/planning/production')
+
 class ReorderingPlans(LoginRequiredMixin, View):
 	def get(self, request):
 		plans = ReorderingPlan.objects.filter(user = request.user)

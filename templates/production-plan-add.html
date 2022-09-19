@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Production Table{% endblock %}
+
+{% block content %}
+
+{% load humanize %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Production Plan</h2></div>
+        </div>
+    </div>
+</div>
+<form action="/planning/production/add" method="POST">{% csrf_token %}
+    <div class="row m-3">
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Batch Size</th>
+                        <th scope="col">Safety Stock Days</th>
+                        <th scope="col">Current Inventory</th>
+                        <th scope="col">Forecast</th>
+                        <th scope="col">Safety Stock</th>
+                        <th scope="col">Batches</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Closing Inventory</th>
+                        <th scope="col">Closing Inventory Days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for line in table_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><input style="width: 100%; border: 0" name="itemcode" value="{{line.product.itemcode}}" readonly></td>
+                        <td>{{line.product.name}}</td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batch_size" value="{{line.batch_size | intcomma}}" readonly></td>
+                        <td><input onchange="safetyStockDaysChanged('{{line.product.itemcode}}')" style="width: 100%; border: 0" name="{{line.product.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batches" value="{{line.batches | intcomma}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_quantity" value="{{line.quantity | intcomma}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <td><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days}}" readonly></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-12">
+            <div class="col">
+                <input name="name" type="text" class="" value="" placeholder="Name">
+            </div>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-12">
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.getElementById("production-link").classList.add('active');
+
+    function safetyStockDaysChanged(itemcode) {
+        safety_stock_days = parseFloat(document.getElementsByName(itemcode+'_safety_stock_days')[0].value.replaceAll(',', ''));
+        forecast = parseFloat(document.getElementsByName(itemcode+'_forecast')[0].value.replaceAll(',', ''));
+        safety_stock = Math.ceil(forecast * (safety_stock_days / 30))
+        current_inventory = parseFloat(document.getElementsByName(itemcode+'_current_inventory')[0].value.replaceAll(',', ''));
+        batch_size = parseFloat(document.getElementsByName(itemcode+'_batch_size')[0].value.replaceAll(',', ''));
+        batches = Math.ceil(safety_stock + forecast > current_inventory ? (safety_stock + forecast - current_inventory) / batch_size : 0);
+        quantity = batches * batch_size;
+        closing_inventory = current_inventory + quantity - forecast;
+        closing_inventory_days = Math.ceil((closing_inventory / forecast) * 30);
+
+        document.getElementsByName(itemcode+'_safety_stock')[0].value = safety_stock.toLocaleString("en-US");
+        document.getElementsByName(itemcode+'_batches')[0].value = batches.toLocaleString("en-US");
+        document.getElementsByName(itemcode+'_quantity')[0].value = quantity.toLocaleString("en-US");
+        document.getElementsByName(itemcode+'_closing_inventory')[0].value = closing_inventory.toLocaleString("en-US");
+        document.getElementsByName(itemcode+'_closing_inventory_days')[0].value = closing_inventory_days;
+    }
+</script>
+
+{% endblock %}
