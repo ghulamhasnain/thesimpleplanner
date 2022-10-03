@@ -34,17 +34,17 @@
             <tbody>
                 {% for line in plan_lines %}
                 <tr>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{line.material.itemcode}}</td>
-                    <td>{{line.material.name}}</td>
-                    <td>{{line.minimum_order_quantity | intcomma}}</td>
-                    <td>{{line.lead_time}}</td>
-                    <td>{{line.safety_stock_days}}</td>
-                    <td>{{line.current_inventory | intcomma}}</td>
-                    <td>{{line.forecast | intcomma}}</td>
-                    <td>{{line.safety_stock | intcomma}}</td>
-                    <td>{{line.proposal | intcomma}}</td>
-                    <td>{{line.closing_inventory | intcomma}}</td>
+                    <th class="align-middle" scope="row">{{forloop.counter}}</th>
+                    <td class="align-middle">{{line.material.itemcode}}</td>
+                    <td class="align-middle">{{line.material.name}}</td>
+                    <td class="align-middle">{{line.minimum_order_quantity | intcomma}}</td>
+                    <td class="align-middle">{{line.lead_time}}</td>
+                    <td class="align-middle">{{line.safety_stock_days}}</td>
+                    <td class="align-middle">{{line.current_inventory | intcomma}}</td>
+                    <td class="align-middle">{{line.forecast | intcomma}}</td>
+                    <td class="align-middle">{{line.safety_stock | intcomma}}</td>
+                    <td class="align-middle">{{line.proposal | intcomma}}</td>
+                    <td class="align-middle">{{line.closing_inventory | intcomma}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

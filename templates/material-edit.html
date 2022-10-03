@@ -10,22 +10,22 @@
     </div>
 </div>
 <div class="row m-3">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form action="/planning/materials/{{material.itemcode}}/edit" method="POST">{% csrf_token %}
             <table class="table table-light">
                 <tbody>
-                    <tr><td>Item Code</td><td>{{material.itemcode}}</td></tr>
-                    <tr><td>Name</td><td class="input-group"><input type="text" class="form-control" name="name" value="{{material.name}}"></td></tr>
-                    <tr><td>Lead Time (days)</td><td class="input-group"><input type="text" class="form-control" name="lead_time" value="{{material.lead_time}}"></td></tr>
-                    <tr><td>Minimum Order Quantity</td><td class="input-group"><input type="text" class="form-control" name="minimum_order_quantity" value="{{material.minimum_order_quantity}}"></td></tr>
-                    <tr><td>Unit of Measure</td><td class="input-group"><input type="text" class="form-control" name="unit_of_measure" value="{{material.unit_of_measure}}"></td></tr>
-                    <tr><td>Cost</td><td class="input-group"><input type="text" class="form-control" name="cost" value="{{material.cost}}"></td></tr>
+                    <tr><td class="fw-bold align-middle">Item Code</td><td>{{material.itemcode}}</td></tr>
+                    <tr><td class="fw-bold align-middle">Name</td><td class="input-group"><input type="text" class="form-control" name="name" value="{{material.name}}"></td></tr>
+                    <tr><td class="fw-bold align-middle">Lead Time (days)</td><td class="input-group"><input type="text" class="form-control" name="lead_time" value="{{material.lead_time}}"></td></tr>
+                    <tr><td class="fw-bold align-middle">Minimum Order Quantity</td><td class="input-group"><input type="text" class="form-control" name="minimum_order_quantity" value="{{material.minimum_order_quantity}}"></td></tr>
+                    <tr><td class="fw-bold align-middle">Unit of Measure</td><td class="input-group"><input type="text" class="form-control" name="unit_of_measure" value="{{material.unit_of_measure}}"></td></tr>
+                    <tr><td class="fw-bold align-middle">Cost</td><td class="input-group"><input type="text" class="form-control" name="cost" value="{{material.cost}}"></td></tr>
                 </tbody>
             </table>
-            <input class="btn btn-success w-100 mt-1" type="submit" value="Save">
+            <input class="btn btn-outline-success mt-1" type="submit" value="Save">
         </form>
         <form action="/planning/materials/{{material.itemcode}}/delete" method="POST">{% csrf_token %}
-            <input class="btn btn-danger w-100 mt-1" type="submit" value="Delete">
+            <input class="btn btn-outline-danger mt-1" type="submit" value="Delete">
         </form>
     </div>
 </div>

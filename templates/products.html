@@ -10,7 +10,7 @@
     <div class="col-12">
         <div class="row">
             <div class="col"><h2>Products</h2></div>
-            <div class="col text-end"><a class="btn btn-primary" href="/planning/products/add">Add Product</a></div>
+            <div class="col text-end"><a class="btn btn-outline-info" href="/planning/products/add">Add Product</a></div>
         </div>
     </div>
 </div>
@@ -32,14 +32,14 @@
             <tbody>
                 {% for p in products %}
                 <tr>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{p.itemcode}}</td>
-                    <td>{{p.name}}</td>
-                    <td>{{p.batch_size | intcomma}}</td>
-                    <td>{{p.unit_of_measure}}</td>
-                    <td>£ {{p.selling_price}}</td>
-                    <td><a class="btn btn-dark" href="products/{{p.itemcode}}/view">View</a></td>
-                    <td><a class="btn btn-dark" href="products/{{p.itemcode}}/edit">Edit</a></td>
+                    <th class="align-middle" scope="row">{{forloop.counter}}</th>
+                    <td class="align-middle">{{p.itemcode}}</td>
+                    <td class="align-middle">{{p.name}}</td>
+                    <td class="align-middle">{{p.batch_size | intcomma}}</td>
+                    <td class="align-middle">{{p.unit_of_measure}}</td>
+                    <td class="align-middle">£ {{p.selling_price}}</td>
+                    <td><a class="btn btn-outline-dark" href="products/{{p.itemcode}}/view">View</a></td>
+                    <td><a class="btn btn-outline-dark" href="products/{{p.itemcode}}/edit">Edit</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

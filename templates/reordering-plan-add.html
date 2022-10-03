@@ -35,17 +35,17 @@
                 <tbody>
                     {% for line in table_list %}
                     <tr>
-                        <th scope="row">{{forloop.counter}}</th>
-                        <td><input style="width: 100%; border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
-                        <td>{{line.material.name}}</td>
-                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
-                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
-                        <td><input onchange="safetyStockDaysChanged('{{line.material.itemcode}}')" style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
-                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
-                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
-                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
-                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
-                        <td><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <th class="align-middle" scope="row">{{forloop.counter}}</th>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
+                        <td class="align-middle">{{line.material.name}}</td>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
+                        <td class="align-middle"><input onchange="safetyStockDaysChanged('{{line.material.itemcode}}')" style="width: 100%; border: 1px solid Darkgrey; border-radius: 0.5em; padding: 0.5em;" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
+                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -55,14 +55,14 @@
     <div class="row m-3">
         <div class="col-12">
             <div class="col">
-                <input name="name" type="text" class="" value="" placeholder="Name">
+                <input name="name" type="text" style="border: 1px solid Darkgrey; padding: 0.5em; border-radius: 0.5em;" value="" placeholder="Name">
             </div>
         </div>
     </div>
     <div class="row m-3">
         <div class="col-12">
             <div class="col">
-                <input type="submit" class="btn btn-primary" value="Save">
+                <input type="submit" class="btn btn-outline-success" value="Save">
             </div>
         </div>
     </div>

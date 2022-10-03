@@ -1,35 +1,58 @@
-{% extends "base.html" %}
+{% extends "base-reg.html" %}
 
 {% block content %}
 
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
+    <section data-bs-version="5.1" class="form6 cid-tioirl1qQC" id="form6-4">
+    
+        <div class="container">
+            <div class="mbr-section-head">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                    <strong>Login</strong>
+                </h3>
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <form action="{% url 'login' %}" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="BDkrSbsIG4tMji98uf/XuHwiFHq1C9l46jzRdAZ34E8Gptc7cjinb4SVk9y7TpdGkMqKoyUdqowVOw4dxGHQ3xh2r4BCkSUpzMZd0hnvNXBq2fWQPBfl402BtVTkDOHq">{% csrf_token %}
+                        {% if form.errors %}
+                        <div class="row">
+                            <div data-form-alert-danger="" class="alert alert-danger col-12">
+                                Your username and password didn't match. Please try again.
+                            </div>
+                        </div>
+                        {% endif %}
 
-    {% if next %}
-        {% if user.is_authenticated %}
-            <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
-        {% else %}
-            <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
-
-    <form method="post" action="{% url 'login' %}">{% csrf_token %}
-        <table>
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.password.label_tag }}</td>
-                <td>{{ form.password }}</td>
-            </tr>
-        </table>
-        <input class="btn btn-primary" type="submit" value="login">
-        <input type="hidden" name="next" value="{{ next }}">
-    </form>
-
-    {# Assumes you setup the password_reset view in your URLconf #}
-    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+                        {% if next %}
+                            {% if user.is_authenticated %}
+                            <div class="row">
+                                <div data-form-alert-danger="" class="alert alert-danger col-12">
+                                    Your account doesn't have access to this page. To proceed, please login with an account that has access.
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="row">
+                                <div data-form-alert-danger="" class="alert alert-danger col-12">
+                                    Please login to see this page.
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                        
+                        <div class="dragArea row">
+                            
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="username">
+                                <input type="text" name="username" placeholder="Email" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required data-form-field="email" class="form-control" value="" id="id_username">
+                            </div>
+                            <div data-for="password" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                <input type="password" name="password" autocomplete="current-password" required placeholder="Password" data-form-field="password" class="form-control" value="" id="id_password">
+                            </div>
+                            <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-black display-4">Submit</button></div>
+                            {# Assumes you setup the password_reset view in your URLconf #}
+                            <div><a class="btn btn-link" style="color: Black;" href="{% url 'password_reset' %}">Lost password?</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}
