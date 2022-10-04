@@ -10,7 +10,7 @@
     </div>
 </div>
 <div class="row m-3">
-    <div class="col-md-12">
+    <div style="overflow-x:auto" class="col-md-12">
         <form action="/planning/products/{{product.itemcode}}/edit" method="POST">{% csrf_token %}
             <table class="table table-light">
                 <tbody>

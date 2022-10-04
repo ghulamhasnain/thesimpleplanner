@@ -6,4 +6,4 @@ from django.template import RequestContext
 
 class Home(View):
 	def get(self, request):
-		return render(request, 'base1.html')
+		return render(request, 'base-reg.html')
