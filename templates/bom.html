@@ -4,6 +4,51 @@
 
 {% block content %}
 
+{% load humanize %}
+
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col"><h2>Bill of Materials</h2></div>
+            <!-- <div class="col text-end"><a class="btn btn-outline-info" href="/planning/forecasts/edit">Edit Forecast</a></div> -->
+        </div>
+    </div>
+</div>
+<div class="row m-3">
+    <div style="overflow-x:auto" class="col-12">
+        {% for b in bom_list %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"><h4>{{b.0.name}}</h4></th>
+                    <th scope="col" class="align-right"><a class="btn btn-outline-info" href="/planning/products/{{b.0.itemcode}}/view">View</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th>Material</th>
+                            <th>Base Quantity</th>
+                        </tr>
+                    </thead>
+                    {% for bom in b.1 %}
+                    <tbody>
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{bom.material.name}}</td>
+                            <td>{{bom.base_quantity}}</td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
+</div>
+
 <script>
     document.getElementById("bom-link").classList.add('active');
 </script>

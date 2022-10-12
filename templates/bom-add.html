@@ -13,7 +13,7 @@
 </div>
 <form action="/planning/bom/{{product.itemcode}}/add" method="POST">{% csrf_token %}
     <div class="row m-3">
-        <div class="col-12">
+        <div style="overflow-x:auto" class="col-12">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -50,7 +50,7 @@
     <div class="row m-3">
         <div class="col-12">
             <div class="col">
-                <input type="submit" class="btn btn-primary" value="Save">
+                <input type="submit" class="btn btn-outline-success" value="Save">
             </div>
         </div>
     </div>

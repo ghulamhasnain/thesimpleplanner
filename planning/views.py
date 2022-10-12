@@ -169,7 +169,16 @@ class AddMaterial(LoginRequiredMixin, View):
 
 class BillOfMaterials(LoginRequiredMixin, View):
 	def get(self, request):
-		return render(request, 'bom.html')
+		bom_list = []
+		products = Product.objects.all()
+		for p in products:
+			try:
+				bom = BillOfMaterial.objects.filter(product = p)
+			except: 
+				bom = False
+			if bom:
+				bom_list.append([p, bom])
+		return render(request, 'bom.html', {'bom_list': bom_list})
 
 class AddBillOfMaterials(LoginRequiredMixin, View):
 	def get(self, request, productItemCode):
