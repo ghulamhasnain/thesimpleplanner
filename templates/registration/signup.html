@@ -1,0 +1,55 @@
+{% extends "base-reg.html" %}
+
+{% block content %}
+
+    <section data-bs-version="5.1" class="form6 cid-tioirl1qQC" id="form6-4">
+    
+        <div class="container">
+            <div class="mbr-section-head">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                    <strong>Signup</strong>
+                </h3>
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <form action="/accounts/signup/" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
+                        <input type="hidden" name="email" data-form-email="true" value="BDkrSbsIG4tMji98uf/XuHwiFHq1C9l46jzRdAZ34E8Gptc7cjinb4SVk9y7TpdGkMqKoyUdqowVOw4dxGHQ3xh2r4BCkSUpzMZd0hnvNXBq2fWQPBfl402BtVTkDOHq">{% csrf_token %}
+                        
+                        <div class="dragArea row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
+                                <input type="text" name="email" placeholder="Email" autofocus autocapitalize="none" autocomplete="email" maxlength="150" required data-form-field="email" class="form-control" value="{{form.data.email}}" id="id_email">
+                            </div>
+                            {% if form.errors.email %}
+                            <div class="alert alert-danger" role="alert">
+                                {{form.errors.email.0}}
+                            </div>
+                            {% endif %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="first_name">
+                                <input type="text" name="first_name" placeholder="First Name" autofocus autocapitalize="none" autocomplete="first_name" maxlength="150" required data-form-field="first_name" class="form-control" value="{{form.data.first_name}}" id="id_first_name">
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="last_name">
+                                <input type="text" name="last_name" placeholder="Last Name" autofocus autocapitalize="none" autocomplete="last_name" maxlength="150" required data-form-field="last_name" class="form-control" value="{{form.data.last_name}}" id="id_last_name">
+                            </div>
+                            <div data-for="password" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                <input type="password" name="password1" autocomplete="password1" required placeholder="Password" data-form-field="password1" class="form-control" value="" id="id_password1">
+                            </div>
+                            <div data-for="confirm_password" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                <input type="password" name="password2" autocomplete="password2" required placeholder="Confirm Password" data-form-field="password2" class="form-control" value="" id="id_password2">
+                            </div>
+
+                            {% if form.errors.password2 %}
+                            <div data-form-alert-danger="" class="alert alert-danger col-12">
+                                {{form.errors.password2}}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-black display-4">Submit</button></div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

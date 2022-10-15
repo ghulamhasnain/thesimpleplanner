@@ -52,7 +52,7 @@
                         {{user.first_name}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Account</a></li>
+                        <li><a class="dropdown-item" href="/accounts/edit">Account</a></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </div>
@@ -63,8 +63,8 @@
 
 <div class="row d-none d-lg-block">
     <ul class="nav nav-tabs nav-justified">
-        <li id="dashboard-link" class="nav-item">
-            <a class="nav-link" aria-current="page" href="/planning/dashboard">Dashboard</a>
+        <li class="nav-item">
+            <a id="dashboard-link" class="nav-link" href="/planning/dashboard">Dashboard</a>
         </li>
         <li class="nav-item">
             <a id="products-link" class="nav-link" href="/planning/products">Products</a>

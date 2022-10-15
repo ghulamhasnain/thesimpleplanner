@@ -170,7 +170,7 @@ class AddMaterial(LoginRequiredMixin, View):
 class BillOfMaterials(LoginRequiredMixin, View):
 	def get(self, request):
 		bom_list = []
-		products = Product.objects.all()
+		products = Product.objects.filter(user__username = request.user.username)
 		for p in products:
 			try:
 				bom = BillOfMaterial.objects.filter(product = p)
