@@ -27,7 +27,7 @@
                     <th scope="col">Forecast</th>
                     <th scope="col">Safety Stock</th>
                     <th scope="col">Batches</th>
-                    <th scope="col">Quantity</th>
+                    <th scope="col" class="table-success">Production Quantity</th>
                     <th scope="col">Closing Inventory</th>
                     <th scope="col">Closing Inventory Days</th>
                 </tr>
@@ -44,7 +44,7 @@
                     <td class="align-middle">{{line.forecast | intcomma}}</td>
                     <td class="align-middle">{{line.safety_stock | intcomma}}</td>
                     <td class="align-middle">{{line.batches | intcomma}}</td>
-                    <td class="align-middle">{{line.quantity | intcomma}}</td>
+                    <td class="align-middle table-success">{{line.quantity | intcomma}}</td>
                     <td class="align-middle">{{line.closing_inventory | intcomma}}</td>
                     <td class="align-middle">{{line.closing_inventory_days | intcomma}}</td>
                 </tr>

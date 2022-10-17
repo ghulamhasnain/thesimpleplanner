@@ -9,7 +9,7 @@
 <div class="row m-3">
     <div class="col-12">
         <div class="row">
-            <div class="col"><h2>Materials - {{material.name}}</h2></div>
+            <div class="col"><h2>{{material.name}}</h2></div>
         </div>
     </div>
 </div>
@@ -23,6 +23,7 @@
                 <tr><td class="fw-bold align-middle">Lead Time</td><td>{{material.lead_time}}</td></tr>
                 <tr><td class="fw-bold align-middle">Minimum Order Quantity</td><td>{{material.minimum_order_quantity}}</td></tr>
                 <tr><td class="fw-bold align-middle">Unit of Measure</td><td>{{material.unit_of_measure}}</td></tr>
+                <tr><td class="fw-bold align-middle">Cost</td><td>{{currency}} {{material.cost}}</td></tr>
             </tbody>
         </table>
     </div>
@@ -60,7 +61,7 @@
                     <td>{{bom.base_quantity | intcomma}}</td>
                     <td>{{bom.material.lead_time}} days</td>
                     <td>{{bom.material.minimum_order_quantity | intcomma}} {{bom.material.unit_of_measure}}</td>
-                    <td>£ {{bom.material.cost}}</td>
+                    <td>{{currency}} {{bom.material.cost}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

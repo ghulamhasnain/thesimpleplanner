@@ -16,6 +16,7 @@
 </div>
 <div class="row m-3">
     <div class="col-12">
+        {% if products|length > 0 %}
         <table style="overflow-x:auto" class="table table-hover">
             <thead>
                 <tr>
@@ -37,13 +38,18 @@
                     <td class="align-middle">{{p.name}}</td>
                     <td class="align-middle">{{p.batch_size | intcomma}}</td>
                     <td class="align-middle">{{p.unit_of_measure}}</td>
-                    <td class="align-middle">£ {{p.selling_price}}</td>
+                    <td class="align-middle">{{currency}} {{p.selling_price}}</td>
                     <td><a class="btn btn-outline-dark" href="products/{{p.itemcode}}/view">View</a></td>
                     <td><a class="btn btn-outline-dark" href="products/{{p.itemcode}}/edit">Edit</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <div class="col-12">
+            <h5>There are no products added.</h5>
+        </div>
+        {% endif %}
     </div>
 </div>
 

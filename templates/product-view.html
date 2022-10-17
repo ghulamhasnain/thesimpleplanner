@@ -9,7 +9,7 @@
 <div class="row m-3">
     <div class="col-12">
         <div class="row">
-            <div class="col"><h2>Products - {{product.name}}</h2></div>
+            <div class="col"><h2>{{product.name}}</h2></div>
             {% if bom_list|length > 0 %}
             <div class="col text-end"><a class="btn btn-outline-info" href="/planning/bom/{{product.itemcode}}/edit">Edit Bill of Materials</a></div>
             {% else %}
@@ -27,7 +27,7 @@
                 <tr><td class="fw-bold">Name</td><td>{{product.name}}</td></tr>
                 <tr><td class="fw-bold">Batch Size</td><td>{{product.batch_size | intcomma}}</td></tr>
                 <tr><td class="fw-bold">Unit of Measure</td><td>{{product.unit_of_measure}}</td></tr>
-                <tr><td class="fw-bold">Selling Price</td><td>{{product.selling_price}}</td></tr>
+                <tr><td class="fw-bold">Selling Price</td><td>{{currency}} {{product.selling_price}}</td></tr>
             </tbody>
         </table>
     </div>
@@ -65,7 +65,7 @@
                     <td>{{bom.base_quantity | intcomma}}</td>
                     <td>{{bom.material.lead_time}} days</td>
                     <td>{{bom.material.minimum_order_quantity | intcomma}} {{bom.material.unit_of_measure}}</td>
-                    <td>£ {{bom.material.cost}}</td>
+                    <td>{{currency}} {{bom.material.cost}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

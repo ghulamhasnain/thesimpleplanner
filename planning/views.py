@@ -11,6 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from .helpers import *
 
+from simplemrp.models import Account
+
 class Dashboard(LoginRequiredMixin, View):
 	def get(self, request):
 		user = request.user
@@ -19,7 +21,8 @@ class Dashboard(LoginRequiredMixin, View):
 class Products(LoginRequiredMixin, View):
 	def get(self, request):
 		products = Product.objects.filter(user__username = request.user.username).order_by('itemcode')
-		return render(request, 'products.html', {'products': products})
+		account = Account.objects.get(user__username = request.user.username)
+		return render(request, 'products.html', {'products': products, 'currency': account.currency})
 
 class EditProduct(LoginRequiredMixin, View):
 	def get(self, request, productItemCode):
@@ -81,7 +84,8 @@ class ViewProduct(LoginRequiredMixin, View):
 		productItemCode = productItemCode.lower()
 		product = Product.objects.get(itemcode = productItemCode)
 		bom_list = BillOfMaterial.objects.filter(product = product)
-		return render(request, 'product-view.html', {'product': product, 'bom_list': bom_list})
+		account = Account.objects.get(user__username = request.user.username)
+		return render(request, 'product-view.html', {'product': product, 'bom_list': bom_list, 'currency': account.currency})
 
 class DeleteProduct(LoginRequiredMixin, View):
 	def post(self, request, productItemCode):
@@ -93,13 +97,15 @@ class DeleteProduct(LoginRequiredMixin, View):
 class Materials(LoginRequiredMixin, View):
 	def get(self, request):
 		materials = Material.objects.filter(user__username = request.user.username).order_by('itemcode')
-		return render(request, 'materials.html', {'materials': materials})
+		account = Account.objects.get(user__username = request.user.username)
+		return render(request, 'materials.html', {'materials': materials, 'currency': account.currency})
 
 class ViewMaterial(LoginRequiredMixin, View):
 	def get(self, request, materialItemCode):
 		materialItemCode = materialItemCode.lower()
 		material = Material.objects.get(itemcode = materialItemCode)
-		return render(request, 'material-view.html', {'material': material})
+		account = Account.objects.get(user__username = request.user.username)
+		return render(request, 'material-view.html', {'material': material, 'currency': account.currency})
 
 class EditMaterial(LoginRequiredMixin, View):
 	def get(self, request, materialItemCode):
@@ -116,7 +122,7 @@ class EditMaterial(LoginRequiredMixin, View):
 		uom = request.POST.get('unit_of_measure')
 		cost = request.POST.get('cost')
 		
-		material.name = name if regex_pattern_match(name_regex_pattern, name) else ''
+		material.name = name if regex_pattern_match(name_regex_pattern, name) else material.name
 		material.lead_time = lead_time if regex_pattern_match(integer_regex_pattern, lead_time) else 1
 		material.minimum_order_quantity = moq if regex_pattern_match(integer_regex_pattern, moq) else 1
 		material.unit_of_measure = uom if regex_pattern_match(uom_regex_pattern, uom) else ''

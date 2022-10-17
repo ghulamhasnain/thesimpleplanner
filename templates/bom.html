@@ -14,39 +14,42 @@
         </div>
     </div>
 </div>
+
 <div class="row m-3">
+    {% if bom_list|length > 0 %}
     <div style="overflow-x:auto" class="col-12">
         {% for b in bom_list %}
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col"><h4>{{b.0.name}}</h4></th>
-                    <th scope="col" class="align-right"><a class="btn btn-outline-info" href="/planning/products/{{b.0.itemcode}}/view">View</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th>Material</th>
-                            <th>Base Quantity</th>
-                        </tr>
-                    </thead>
-                    {% for bom in b.1 %}
-                    <tbody>
-                        <tr>
-                            <th scope="row">{{forloop.counter}}</th>
-                            <td>{{bom.material.name}}</td>
-                            <td>{{bom.base_quantity}}</td>
-                        </tr>
-                    </tbody>
-                    {% endfor %}
-                </table>
-            </tbody>
-        </table>
+        <div class="row pt-4">
+            <div class="col-6"><h4 class="pt-3 pb-3">{{b.0.name}}</h4></div>
+            <div class="col-6 align-right"><a class="btn btn-outline-info" href="/planning/products/{{b.0.itemcode}}/view">View</a></div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th>Material</th>
+                        <th>Base Quantity</th>
+                    </tr>
+                </thead>
+                {% for bom in b.1 %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{bom.material.name}}</td>
+                        <td>{{bom.base_quantity | intcomma}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="col-12">
+        <h5>There are no Bill of Materials added.</h5>
+    </div>
+    {% endif %}
 </div>
 
 <script>
