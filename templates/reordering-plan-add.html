@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<form action="/planning/reordering/add" method="POST">{% csrf_token %}
+<form action="/planning/reordering/{{plan_id}}/add" method="POST">{% csrf_token %}
     <div class="row m-3">
         <div style="overflow-x:auto" class="col-12">
             <table class="table table-hover">
@@ -28,7 +28,7 @@
                         <th scope="col">Current Inventory</th>
                         <th scope="col">Forecast</th>
                         <th scope="col">Safety Stock</th>
-                        <th scope="col">Proposal</th>
+                        <th scope="col" class="table-success">Proposal</th>
                         <th scope="col">Closing Inventory</th>
                     </tr>
                 </thead>
@@ -36,16 +36,16 @@
                     {% for line in table_list %}
                     <tr>
                         <th class="align-middle" scope="row">{{forloop.counter}}</th>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
-                        <td class="align-middle">{{line.material.name}}</td>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
-                        <td class="align-middle"><input onchange="safetyStockDaysChanged('{{line.material.itemcode}}')" style="width: 100%; border: 1px solid Darkgrey; border-radius: 0.5em; padding: 0.5em;" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
-                        <td class="align-middle"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4">{{line.material.name}}</td>
+                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4"><input onchange="safetyStockDaysChanged('{{line.material.itemcode}}')" style="width: 100%; border: 1px solid Darkgrey; border-radius: 0.5em; padding: 0.5em;" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
+                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
+                        <td class="align-middle table-success pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
                     </tr>
                     {% endfor %}
                 </tbody>

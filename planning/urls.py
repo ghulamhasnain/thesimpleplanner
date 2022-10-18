@@ -52,5 +52,5 @@ urlpatterns = [
     path('reordering', views.ReorderingPlans.as_view(), name='reordering_plan'),
     path('reordering/<slug:planId>/view', views.ViewReorderingPlan.as_view(), name='view_reordering_plan'),
     path('reordering/<slug:planId>/delete', views.DeleteReorderingPlan.as_view(), name='delete_reordering_plan'),
-    path('reordering/add', views.AddReorderingPlan.as_view(), name='add_reordering_plan')
+    path('reordering/<slug:planId>/add', views.AddReorderingPlan.as_view(), name='add_reordering_plan')
 ]

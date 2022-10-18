@@ -9,7 +9,10 @@
 <div class="row m-3">
     <div class="col-12">
         <div class="row">
-            <div class="col"><h2>Reordering Plan - {{plan.name}}</h2></div>
+            <div class="col pb-4"><h2>{{plan.name}}</h2></div>
+        </div>
+        <div class="row">
+            <div class="col pb-4"><h5>(Based on production plan: <b>{{plan.production_plan.name}}</b>)</h5></div>
         </div>
     </div>
 </div>
@@ -27,7 +30,7 @@
                     <th scope="col">Current Inventory</th>
                     <th scope="col">Forecast</th>
                     <th scope="col">Safety Stock</th>
-                    <th scope="col">Proposal</th>
+                    <th scope="col" class="table-success">Proposal</th>
                     <th scope="col">Closing Inventory</th>
                 </tr>
             </thead>
@@ -35,16 +38,16 @@
                 {% for line in plan_lines %}
                 <tr>
                     <th class="align-middle" scope="row">{{forloop.counter}}</th>
-                    <td class="align-middle">{{line.material.itemcode}}</td>
-                    <td class="align-middle">{{line.material.name}}</td>
-                    <td class="align-middle">{{line.minimum_order_quantity | intcomma}}</td>
-                    <td class="align-middle">{{line.lead_time}}</td>
-                    <td class="align-middle">{{line.safety_stock_days}}</td>
-                    <td class="align-middle">{{line.current_inventory | intcomma}}</td>
-                    <td class="align-middle">{{line.forecast | intcomma}}</td>
-                    <td class="align-middle">{{line.safety_stock | intcomma}}</td>
-                    <td class="align-middle">{{line.proposal | intcomma}}</td>
-                    <td class="align-middle">{{line.closing_inventory | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.material.itemcode}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.material.name}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.minimum_order_quantity | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.lead_time}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.safety_stock_days}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.current_inventory | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.forecast | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.safety_stock | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4 table-success">{{line.proposal | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.closing_inventory | intcomma}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

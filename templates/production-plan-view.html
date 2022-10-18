@@ -9,7 +9,8 @@
 <div class="row m-3">
     <div class="col-12">
         <div class="row">
-            <div class="col"><h2>Production Plan - {{plan.name}}</h2></div>
+            <div class="col pb-4"><h2>{{plan.name}}</h2></div>
+            <div class="col text-end"><a class="btn btn-outline-info" href="/planning/reordering/{{plan.id}}/add">Create Materials Reordering Plan</a></div>
         </div>
     </div>
 </div>
@@ -35,18 +36,18 @@
             <tbody>
                 {% for line in plan_lines %}
                 <tr>
-                    <th class="align-middle" scope="row">{{forloop.counter}}</th>
-                    <td class="align-middle">{{line.product.itemcode}}</td>
-                    <td class="align-middle">{{line.product.name}}</td>
-                    <td class="align-middle">{{line.batch_size | intcomma}}</td>
-                    <td class="align-middle">{{line.safety_stock_days}}</td>
-                    <td class="align-middle">{{line.current_inventory | intcomma}}</td>
-                    <td class="align-middle">{{line.forecast | intcomma}}</td>
-                    <td class="align-middle">{{line.safety_stock | intcomma}}</td>
-                    <td class="align-middle">{{line.batches | intcomma}}</td>
-                    <td class="align-middle table-success">{{line.quantity | intcomma}}</td>
-                    <td class="align-middle">{{line.closing_inventory | intcomma}}</td>
-                    <td class="align-middle">{{line.closing_inventory_days | intcomma}}</td>
+                    <th class="align-middle pt-4 pb-4" scope="row">{{forloop.counter}}</th>
+                    <td class="align-middle pt-4 pb-4">{{line.product.itemcode}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.product.name}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.batch_size | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.safety_stock_days}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.current_inventory | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.forecast | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.safety_stock | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.batches | intcomma}}</td>
+                    <td class="align-middle table-success pt-4 pb-4">{{line.quantity | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.closing_inventory | intcomma}}</td>
+                    <td class="align-middle pt-4 pb-4">{{line.closing_inventory_days | intcomma}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

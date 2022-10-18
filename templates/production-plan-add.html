@@ -37,17 +37,17 @@
                     {% for line in table_list %}
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="itemcode" value="{{line.product.itemcode}}" readonly></td>
-                        <td  class="align-middle">{{line.product.name}}</td>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batch_size" value="{{line.batch_size | intcomma}}" readonly></td>
-                        <td  class="align-middle"><input onchange="safetyStockDaysChanged('{{line.product.itemcode}}')" style="width: 100%; border: 1px solid Darkgray; padding: 0.5em; border-radius: 0.5em;" name="{{line.product.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batches" value="{{line.batches | intcomma}}" readonly></td>
-                        <td  class="align-middle table-success"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_quantity" value="{{line.quantity | intcomma}}" readonly></td>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
-                        <td  class="align-middle"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="itemcode" value="{{line.product.itemcode}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4">{{line.product.name}}</td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batch_size" value="{{line.batch_size | intcomma}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4"><input onchange="safetyStockDaysChanged('{{line.product.itemcode}}')" style="width: 100%; border: 1px solid Darkgray; padding: 0.5em; border-radius: 0.5em;" name="{{line.product.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batches" value="{{line.batches | intcomma}}" readonly></td>
+                        <td  class="align-middle table-success pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_quantity" value="{{line.quantity | intcomma}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days}}" readonly></td>
                     </tr>
                     {% endfor %}
                 </tbody>

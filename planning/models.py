@@ -87,6 +87,7 @@ class ProductionPlanLine(models.Model):
 class ReorderingPlan(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=64, default='')
+    production_plan =models.ForeignKey(ProductionPlan, on_delete=models.SET_NULL, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
