@@ -349,8 +349,16 @@ class AddProductionPlan(LoginRequiredMixin, View):
 			prod_plan.product = p
 			prod_plan.batch_size = p.batch_size
 			prod_plan.safety_stock_days = 0
-			prod_plan.current_inventory = Inventory.objects.get(product = p).stock
-			prod_plan.forecast = Forecast.objects.get(product = p).quantity
+			try:
+				current_inventory = Inventory.objects.get(product = p).stock
+			except:
+				current_inventory = 0
+			prod_plan.current_inventory = current_inventory
+			try:
+				forecast = Forecast.objects.get(product = p).quantity
+			except:
+				forecast = 0
+			prod_plan.forecast = forecast
 			prod_plan.safety_stock = 0
 			prod_plan.batches = 0
 			prod_plan.quantity = 0
@@ -441,48 +449,9 @@ class DeleteReorderingPlan(LoginRequiredMixin, View):
 class AddReorderingPlan(LoginRequiredMixin, View):
 	def get(self, request, planId):
 		import math
-
-		# materials = Material.objects.filter(user = request.user)
-		# table_list = []
-		# for m in materials:
-		# 	bom_list = BillOfMaterial.objects.filter(material = m)
-		# 	forecast = 0
-		# 	for bom in bom_list:
-		# 		product_forecast = Forecast.objects.get(product = bom.product).quantity
-		# 		product_inventory = Inventory.objects.get(product = bom.product).stock
-		# 		base_quantity = bom.base_quantity
-		# 		batch_size = bom.product.batch_size
-		# 		forecast_calculation = (product_forecast - product_inventory) * base_quantity / batch_size
-		# 		forecast = forecast + forecast_calculation if forecast_calculation > 0 else forecast
-			
-		# 	safety_stock_days = m.lead_time + 1
-		# 	current_inventory = Inventory.objects.get(material = m).stock
-		# 	safety_stock = math.ceil(forecast * (safety_stock_days / 30))
-		# 	minimum_order_quantity = m.minimum_order_quantity
-		# 	proposal = 0 if current_inventory > safety_stock + forecast else math.ceil((safety_stock + forecast - current_inventory)/minimum_order_quantity) * minimum_order_quantity
-		# 	closing_inventory = current_inventory - forecast + proposal
-
-		# 	mat_plan = ReorderingPlan()
-		# 	mat_plan.user = request.user
-		# 	mat_plan.material = m
-		# 	mat_plan.minimum_order_quantity = minimum_order_quantity
-		# 	mat_plan.lead_time = m.lead_time
-		# 	mat_plan.safety_stock_days = safety_stock_days
-		# 	mat_plan.current_inventory = current_inventory
-		# 	mat_plan.forecast = forecast
-		# 	mat_plan.safety_stock = safety_stock
-		# 	mat_plan.proposal = proposal
-		# 	mat_plan.closing_inventory = closing_inventory
-			
-		# 	table_list.append(mat_plan)
-		# return render(request, 'reordering-plan-add.html', {'table_list': table_list})
-
 		production_plan = ProductionPlan.objects.get(id=planId)
 		materials = Material.objects.filter(user = request.user)
 		table_list = []
-		# product = Product.objects.filter(user = request.user)[0]
-		# product_forecast = ProductionPlanLine.objects.filter(plan = production_plan, product = product)[0].quantity
-		# return HttpResponse(product_forecast)
 
 		for m in materials:
 			bom_list = BillOfMaterial.objects.filter(material = m)
@@ -501,6 +470,7 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 			minimum_order_quantity = m.minimum_order_quantity
 			proposal = 0 if current_inventory > safety_stock + forecast else math.ceil((safety_stock + forecast - current_inventory)/minimum_order_quantity) * minimum_order_quantity
 			closing_inventory = current_inventory - forecast + proposal
+			closing_inventory_days = closing_inventory * 30 / forecast if forecast > 0 else 0
 
 			mat_plan = ReorderingPlan()
 			mat_plan.user = request.user
@@ -513,6 +483,7 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 			mat_plan.safety_stock = safety_stock
 			mat_plan.proposal = proposal
 			mat_plan.closing_inventory = closing_inventory
+			mat_plan.closing_inventory_days = closing_inventory_days
 			
 			table_list.append(mat_plan)
 		return render(request, 'reordering-plan-add.html', {'table_list': table_list, 'plan_id': planId})
@@ -543,6 +514,7 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 			safety_stock_post = request.POST.get(itemcode+'_safety_stock')
 			proposal_post = request.POST.get(itemcode+'_proposal')
 			closing_inventory_post = request.POST.get(itemcode+'_closing_inventory')
+			closing_inventory_days_post = request.POST.get(itemcode+'_closing_inventory_days')
 
 			mat_plan_line.plan = mat_plan
 			mat_plan_line.material = m
@@ -554,6 +526,7 @@ class AddReorderingPlan(LoginRequiredMixin, View):
 			mat_plan_line.safety_stock = stringToInt(safety_stock_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(safety_stock_post))) else 0
 			mat_plan_line.proposal = stringToInt(proposal_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(proposal_post))) else 0
 			mat_plan_line.closing_inventory = stringToFloat(closing_inventory_post) if regex_pattern_match(float_regex_pattern, str(stringToFloat(closing_inventory_post))) else 0
+			mat_plan_line.closing_inventory_days = stringToInt(closing_inventory_days_post) if regex_pattern_match(integer_regex_pattern, str(stringToInt(closing_inventory_days_post))) else 0
 
 			table_list.append(mat_plan_line)
 		mat_plan.save()

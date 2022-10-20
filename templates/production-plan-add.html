@@ -15,39 +15,46 @@
 </div>
 <form action="/planning/production/add" method="POST">{% csrf_token %}
     <div class="row m-3">
-        <div style="overflow-x:auto" class="col-12">
+        <div style="overflow-x:auto" class="col-12 table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item Code</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Batch Size</th>
-                        <th scope="col">Safety Stock Days</th>
-                        <th scope="col">Current Inventory</th>
-                        <th scope="col">Forecast</th>
-                        <th scope="col">Safety Stock</th>
-                        <th scope="col">Batches</th>
-                        <th scope="col" class="table-success">Production Quantity</th>
-                        <th scope="col">Closing Inventory</th>
-                        <th scope="col">Closing Inventory Days</th>
+                        <th scope="col" class="text-nowrap">#</th>
+                        <th scope="col" class="text-nowrap">Product Code</th>
+                        <th scope="col" class="text-nowrap">Product Description</th>
+                        <th scope="col" class="text-nowrap">Batch Size</th>
+                        <th scope="col" class="text-nowrap">
+                            <div id="ssd-popover" tabindex="0" role="button" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Enter safety stock days value for each product to calculate production quantity.">
+                                Safety Stock Days
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-nowrap">Current Inventory</th>
+                        <th scope="col" class="text-nowrap">Forecast</th>
+                        <th scope="col" class="text-nowrap">Safety Stock</th>
+                        <th scope="col" class="text-nowrap">Batches</th>
+                        <th scope="col" class="table-success text-nowrap">Production Quantity</th>
+                        <th scope="col" class="text-nowrap">Closing Inventory</th>
+                        <th scope="col" class="text-nowrap">Closing Inventory Days</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for line in table_list %}
                     <tr>
-                        <th scope="row">{{forloop.counter}}</th>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="itemcode" value="{{line.product.itemcode}}" readonly></td>
-                        <td  class="align-middle pt-4 pb-4">{{line.product.name}}</td>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batch_size" value="{{line.batch_size | intcomma}}" readonly></td>
-                        <td  class="align-middle pt-4 pb-4"><input onchange="safetyStockDaysChanged('{{line.product.itemcode}}')" style="width: 100%; border: 1px solid Darkgray; padding: 0.5em; border-radius: 0.5em;" name="{{line.product.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batches" value="{{line.batches | intcomma}}" readonly></td>
-                        <td  class="align-middle table-success pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_quantity" value="{{line.quantity | intcomma}}" readonly></td>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
-                        <td  class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days}}" readonly></td>
+                        <th scope="row" class="align-middle">{{forloop.counter}}</th>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="border: 0;" name="itemcode" value="{{line.product.itemcode}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap">{{line.product.name}}</td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batch_size" value="{{line.batch_size | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input onchange="safetyStockDaysChanged('{{line.product.itemcode}}')" style="width: 100%; border: 1px solid Darkgray; padding: 0.5em; border-radius: 0.5em;" name="{{line.product.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_batches" value="{{line.batches | intcomma}}" readonly></td>
+                        <td class="align-middle table-success pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_quantity" value="{{line.quantity | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.product.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days}}" readonly></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -73,6 +80,14 @@
 <script>
     document.getElementById("production-link").classList.add('active');
 
+    function adjustItemcodeLength(inp) {
+        var inputValueLength = inp.value.length;
+        inp.style.width = inputValueLength > 27 ? inputValueLength * 8.5 + 'px' : false;
+        console.log(inp.style.width);
+    }
+    var inputsOnPage = document.getElementsByName('itemcode');
+    inputsOnPage.forEach(adjustItemcodeLength);
+    
     function safetyStockDaysChanged(itemcode) {
         safety_stock_days = parseFloat(document.getElementsByName(itemcode+'_safety_stock_days')[0].value.replaceAll(',', ''));
         forecast = parseFloat(document.getElementsByName(itemcode+'_forecast')[0].value.replaceAll(',', ''));

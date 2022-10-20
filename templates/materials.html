@@ -21,26 +21,26 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Item Code</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Lead Time</th>
-                    <th scope="col">Minimum Order Quantity</th>
-                    <th scope="col">Cost</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col" class="text-nowrap">Item Code</th>
+                    <th scope="col" class="text-nowrap">Name</th>
+                    <th scope="col" class="text-nowrap">Lead Time</th>
+                    <th scope="col" class="text-nowrap">Minimum Order Quantity</th>
+                    <th scope="col" class="text-nowrap">Cost per UoM</th>
+                    <th scope="col" class="text-nowrap"></th>
+                    <th scope="col" class="text-nowrap"></th>
                 </tr>
             </thead>
             <tbody>
                 {% for m in materials %}
                 <tr>
-                    <th class="align-middle" scope="row">{{forloop.counter}}</th>
-                    <td class="align-middle">{{m.itemcode}}</td>
-                    <td class="align-middle">{{m.name}}</td>
-                    <td class="align-middle">{{m.lead_time}} days</td>
-                    <td class="align-middle">{{m.minimum_order_quantity | intcomma}} {{m.unit_of_measure}}</td>
-                    <td class="align-middle">{{currency}} {{m.cost}}</td>
-                    <td class="align-middle"><a class="btn btn-outline-dark" href="materials/{{m.itemcode}}/view">View</a></td>
-                    <td class="align-middle"><a class="btn btn-outline-dark" href="materials/{{m.itemcode}}/edit">Edit</a></td>
+                    <th class="align-middle text-nowrap" scope="row">{{forloop.counter}}</th>
+                    <td class="align-middle text-nowrap">{{m.itemcode}}</td>
+                    <td class="align-middle text-nowrap">{{m.name}}</td>
+                    <td class="align-middle text-nowrap">{{m.lead_time}} days</td>
+                    <td class="align-middle text-nowrap">{{m.minimum_order_quantity | intcomma}} {{m.unit_of_measure}}</td>
+                    <td class="align-middle text-nowrap">{{currency}} {{m.cost | intcomma}}</td>
+                    <td class="align-middle"><a class="btn btn-outline-dark text-nowrap" href="materials/{{m.itemcode}}/view">View</a></td>
+                    <td class="align-middle"><a class="btn btn-outline-dark text-nowrap" href="materials/{{m.itemcode}}/edit">Edit</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

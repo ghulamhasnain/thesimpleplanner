@@ -25,17 +25,9 @@
                 <tbody id="table-body">
                     {% for bom in bom_list %}
                     <tr>
-                        <td>
-                            <div class="col">{{bom.material.itemcode}}</div>
-                        </td>
-                        <td>
-                            <div class="col">{{bom.material.name}}</div>
-                        </td>
-                        <td>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" aria-label="Base Quantity" name="{{bom.material.itemcode}}" value="{{bom.base_quantity}}">
-                            </div>
-                        </td>
+                        <td class="align-middle">{{bom.material.itemcode}}</td>
+                        <td class="align-middle">{{bom.material.name}}</td>
+                        <td class="input-group align-middle"><input type="text" class="form-control" aria-label="Base Quantity" name="{{bom.material.itemcode}}" value="{{bom.base_quantity}}"></td>
                     </tr>
                     {% endfor %}
                 </tbody>

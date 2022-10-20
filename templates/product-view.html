@@ -50,7 +50,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Item Code</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Base Quantity</th>
+                    <th scope="col">Base Quantity per batch</th>
                     <th scope="col">Lead Time</th>
                     <th scope="col">Minimum Order Quantity</th>
                     <th scope="col">Cost</th>
@@ -65,7 +65,7 @@
                     <td>{{bom.base_quantity | intcomma}}</td>
                     <td>{{bom.material.lead_time}} days</td>
                     <td>{{bom.material.minimum_order_quantity | intcomma}} {{bom.material.unit_of_measure}}</td>
-                    <td>{{currency}} {{bom.material.cost}}</td>
+                    <td>{{currency}} {{bom.material.cost | intcomma}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

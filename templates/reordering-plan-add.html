@@ -15,37 +15,46 @@
 </div>
 <form action="/planning/reordering/{{plan_id}}/add" method="POST">{% csrf_token %}
     <div class="row m-3">
-        <div style="overflow-x:auto" class="col-12">
+        <div style="overflow-x:auto" class="col-12 table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item Code</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">MOQ</th>
-                        <th scope="col">Lead Time</th>
-                        <th scope="col">Safety Stock Days</th>
-                        <th scope="col">Current Inventory</th>
-                        <th scope="col">Forecast</th>
-                        <th scope="col">Safety Stock</th>
-                        <th scope="col" class="table-success">Proposal</th>
-                        <th scope="col">Closing Inventory</th>
+                        <th scope="col" class="text-nowrap">#</th>
+                        <th scope="col" class="text-nowrap">Material Code</th>
+                        <th scope="col" class="text-nowrap">Material Description</th>
+                        <th scope="col" class="text-nowrap">MOQ</th>
+                        <th scope="col" class="text-nowrap">Lead Time</th>
+                        <th scope="col" class="text-nowrap">
+                            <div id="ssd-popover" tabindex="0" role="button" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Enter safety stock days value for each material to calculate reorder proposal quantity.">
+                                Safety Stock Days
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-nowrap">Current Inventory</th>
+                        <th scope="col" class="text-nowrap">Forecast</th>
+                        <th scope="col" class="text-nowrap">Safety Stock</th>
+                        <th scope="col" class="table-success text-nowrap">Purchase Proposal</th>
+                        <th scope="col" class="text-nowrap">Closing Inventory</th>
+                        <th scope="col" class="text-nowrap">Closing Inventory Days</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for line in table_list %}
                     <tr>
                         <th class="align-middle" scope="row">{{forloop.counter}}</th>
-                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4">{{line.material.name}}</td>
-                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4"><input onchange="safetyStockDaysChanged('{{line.material.itemcode}}')" style="width: 100%; border: 1px solid Darkgrey; border-radius: 0.5em; padding: 0.5em;" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
-                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
-                        <td class="align-middle table-success pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap">{{line.material.name}}</td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input onchange="safetyStockDaysChanged('{{line.material.itemcode}}')" style="width: 100%; border: 1px solid Darkgrey; border-radius: 0.5em; padding: 0.5em;" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
+                        <td class="align-middle table-success pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days | floatformat:0 | intcomma}}" readonly></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -71,6 +80,14 @@
 <script>
     document.getElementById("reordering-link").classList.add('active');
 
+    function adjustItemcodeLength(inp) {
+        var inputValueLength = inp.value.length;
+        inp.style.width = inputValueLength > 27 ? inputValueLength * 8.5 + 'px' : false;
+        console.log(inp.style.width);
+    }
+    var inputsOnPage = document.getElementsByName('itemcode');
+    inputsOnPage.forEach(adjustItemcodeLength);
+
     function safetyStockDaysChanged(itemcode) {
         safety_stock_days = parseFloat(document.getElementsByName(itemcode+'_safety_stock_days')[0].value.replaceAll(',', ''));
         forecast = parseFloat(document.getElementsByName(itemcode+'_forecast')[0].value.replaceAll(',', ''));
@@ -79,10 +96,12 @@
         minimum_order_quantity = parseFloat(document.getElementsByName(itemcode+'_moq')[0].value.replaceAll(',', ''));
         proposal = current_inventory > safety_stock + forecast ? 0 : Math.ceil((forecast + safety_stock - current_inventory) / minimum_order_quantity) * minimum_order_quantity;
         closing_inventory =  current_inventory - forecast + proposal;
+        closing_inventory_days = forecast > 0 ? closing_inventory * 30 / forecast : 0
 
         document.getElementsByName(itemcode+'_safety_stock')[0].value = safety_stock.toLocaleString("en-US");
         document.getElementsByName(itemcode+'_proposal')[0].value = proposal.toLocaleString("en-US");
         document.getElementsByName(itemcode+'_closing_inventory')[0].value = closing_inventory;
+        document.getElementsByName(itemcode+'_closing_inventory_days')[0].value = Math.floor(closing_inventory_days);
         console.log(safety_stock);
     }
 </script>

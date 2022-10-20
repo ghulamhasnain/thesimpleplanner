@@ -66,6 +66,7 @@ class EditAccount(LoginRequiredMixin, View):
 		currency = request.POST.get('currency')
 		account_change = False
 		user_change = False
+		message = False
 		if account.currency != currency:
 			account.currency = currency
 			account_change = True
@@ -75,6 +76,8 @@ class EditAccount(LoginRequiredMixin, View):
 			user_change = True
 		if account_change:
 			account.save()
+			message = 'Account information changed'
 		if user_change:
 			user.save()
-		return redirect('/accounts/edit/')
+			message = 'Account information changed'
+		return render(request, 'account.html', {'account': account, 'message': message})

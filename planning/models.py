@@ -104,6 +104,7 @@ class ReorderingPlanLine(models.Model):
     safety_stock = models.FloatField(default = 0)
     proposal = models.FloatField(default=0)
     closing_inventory = models.FloatField(default = 0)
+    closing_inventory_days = models.IntegerField(default=1)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
