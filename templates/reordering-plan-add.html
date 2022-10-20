@@ -44,17 +44,17 @@
                     {% for line in table_list %}
                     <tr>
                         <th class="align-middle" scope="row">{{forloop.counter}}</th>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="border: 0" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="border: 0; background-color: rgb(0,0,0,0);" name="itemcode" value="{{line.material.itemcode}}" readonly></td>
                         <td class="align-middle pt-4 pb-4 text-nowrap">{{line.material.name}}</td>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_moq" value="{{line.minimum_order_quantity | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_lead_time" value="{{line.lead_time}}" readonly></td>
                         <td class="align-middle pt-4 pb-4 text-nowrap"><input onchange="safetyStockDaysChanged('{{line.material.itemcode}}')" style="width: 100%; border: 1px solid Darkgrey; border-radius: 0.5em; padding: 0.5em;" name="{{line.material.itemcode}}_safety_stock_days" value="{{line.safety_stock_days}}"></td>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
-                        <td class="align-middle table-success pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
-                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0" name="{{line.material.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days | floatformat:0 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_current_inventory" value="{{line.current_inventory | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_forecast" value="{{line.forecast | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_safety_stock" value="{{line.safety_stock | intcomma}}" readonly></td>
+                        <td class="align-middle table-success pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_proposal" value="{{line.proposal | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_closing_inventory" value="{{line.closing_inventory | floatformat:2 | intcomma}}" readonly></td>
+                        <td class="align-middle pt-4 pb-4 text-nowrap"><input style="width: 100%; border: 0; background-color: rgb(0,0,0,0);" name="{{line.material.itemcode}}_closing_inventory_days" value="{{line.closing_inventory_days | floatformat:0 | intcomma}}" readonly></td>
                     </tr>
                     {% endfor %}
                 </tbody>

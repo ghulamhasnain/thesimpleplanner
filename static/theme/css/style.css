@@ -959,3 +959,8 @@ blockquote {
 	top: 0;
 	left: -2400px;
 }
+
+.plan-inputs {
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
