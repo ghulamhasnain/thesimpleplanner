@@ -1,5 +1,6 @@
 from contextlib import closing
 from itertools import product
+from math import ceil
 from time import strftime
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -345,9 +346,10 @@ class AddProductionPlan(LoginRequiredMixin, View):
 		products = Product.objects.filter(user = request.user)
 		table_list = []
 		for p in products:
+			batch_size = p.batch_size
 			prod_plan = ProductionPlanLine()
 			prod_plan.product = p
-			prod_plan.batch_size = p.batch_size
+			prod_plan.batch_size = batch_size
 			prod_plan.safety_stock_days = 0
 			try:
 				current_inventory = Inventory.objects.get(product = p).stock
@@ -358,12 +360,17 @@ class AddProductionPlan(LoginRequiredMixin, View):
 				forecast = Forecast.objects.get(product = p).quantity
 			except:
 				forecast = 0
+			prod_quantity = ceil((forecast - current_inventory)/batch_size) * batch_size if current_inventory < forecast else 0
+			batches = prod_quantity / batch_size
+			closing_inventory = prod_quantity + current_inventory - forecast
+			closing_inventory_days = closing_inventory * 30 / forecast if forecast > 0 else 0
+
 			prod_plan.forecast = forecast
 			prod_plan.safety_stock = 0
-			prod_plan.batches = 0
-			prod_plan.quantity = 0
-			prod_plan.closing_inventory = 0
-			prod_plan.closing_inventory_days = 0
+			prod_plan.batches = batches
+			prod_plan.quantity = prod_quantity
+			prod_plan.closing_inventory = closing_inventory
+			prod_plan.closing_inventory_days = closing_inventory_days
 
 			table_list.append(prod_plan)
 		
