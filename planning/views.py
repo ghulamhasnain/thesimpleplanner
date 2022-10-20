@@ -363,7 +363,7 @@ class AddProductionPlan(LoginRequiredMixin, View):
 			prod_quantity = ceil((forecast - current_inventory)/batch_size) * batch_size if current_inventory < forecast else 0
 			batches = prod_quantity / batch_size
 			closing_inventory = prod_quantity + current_inventory - forecast
-			closing_inventory_days = closing_inventory * 30 / forecast if forecast > 0 else 0
+			closing_inventory_days = round(closing_inventory * 30 / forecast) if forecast > 0 else 0
 
 			prod_plan.forecast = forecast
 			prod_plan.safety_stock = 0

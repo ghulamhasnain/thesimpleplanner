@@ -37,7 +37,7 @@
                         <th scope="col" class="">Batches</th>
                         <th scope="col" class="table-success">Production Quantity</th>
                         <th scope="col" class="">Closing Stock</th>
-                        <th scope="col" class="">Closing Days</th>
+                        <th scope="col" class="">Closing Stock Days</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,7 +97,7 @@
         batches = Math.ceil(safety_stock + forecast > current_inventory ? (safety_stock + forecast - current_inventory) / batch_size : 0);
         quantity = batches * batch_size;
         closing_inventory = current_inventory + quantity - forecast;
-        closing_inventory_days = forecast > 0 ? Math.ceil((closing_inventory / forecast) * 30) : 0;
+        closing_inventory_days = forecast > 0 ? Math.floor((closing_inventory / forecast) * 30) : 0;
 
         document.getElementsByName(itemcode+'_safety_stock')[0].value = safety_stock.toLocaleString("en-US");
         document.getElementsByName(itemcode+'_batches')[0].value = batches.toLocaleString("en-US");
